@@ -12,7 +12,7 @@ enum ForecastPeriod {
     case daily
 }
 
-enum Weather: String {
+enum Weather: String { // to get the real values, use .rawValue
     case clear = "Clear"
     case cloudy = "Cloudy"
     case rainy = "Mid Rain"

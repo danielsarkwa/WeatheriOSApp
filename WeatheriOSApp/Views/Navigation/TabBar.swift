@@ -36,7 +36,7 @@ struct TabBar: View {
                 
                 // MARK: Navigation Button
                 NavigationLink {
-                    
+                    WeatherView() // had it's own navigation bar to handle back action and styling
                 } label: {
                     Image(systemName: "list.star")
                         .frame(width: 44, height: 44)

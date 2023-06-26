@@ -23,7 +23,7 @@ struct HomeView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationView { // Any view that has to perform navigation in a stack has to be placed in a navigationView -- the trigger can be called from anywhere within that view
             GeometryReader { geometry in
                 let screenHeight = geometry.size.height + geometry.safeAreaInsets.top + geometry.safeAreaInsets.bottom
                 
