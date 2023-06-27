@@ -8,6 +8,16 @@
 import SwiftUI
 
 struct WeatherView: View {
+    @State private var searchText = ""
+    
+    var searchResult: [Forecast] {
+        if searchText.isEmpty {
+            return Forecast.cities
+        } else {
+            return Forecast.cities.filter { $0.location.contains(searchText) }
+        }
+    }
+    
     var body: some View {
         ZStack {
             // MARK: Background
@@ -16,7 +26,7 @@ struct WeatherView: View {
             
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 20) {
-                    ForEach(Forecast.cities) { forecast in
+                    ForEach(searchResult) { forecast in
                         WeatherWidget(forecast: forecast)
                     }
                 }
@@ -27,15 +37,18 @@ struct WeatherView: View {
             }
         }
         .overlay {
-            NavigationBar() // custom navBar -- although it's overlay but the space below the bar is interactive
+            NavigationBar(searchText: $searchText) // custom navBar -- although it's overlay but the space below the bar is interactive
         }
         .navigationBarHidden(true) // any view placed inside NavigationLink will have iOS custom navigationBar on top of your view
+//        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a city or airport") // navigationView has a topBar on the child stack to so add a search, add it to the child stack element
     }
 }
 
 struct WeatherView_Previews: PreviewProvider {
     static var previews: some View {
-        WeatherView()
-            .preferredColorScheme(.dark)
+        NavigationView {
+            WeatherView()
+                .preferredColorScheme(.dark)
+        }
     }
 }
